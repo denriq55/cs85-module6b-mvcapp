@@ -1,0 +1,11 @@
+{
+    "name": "dyanenriquez/module6a_mvc_project",
+    "description": "A simple PHP MVC project for learning purposes",
+    "autoload": {
+        "psr-4": {
+            "Dyanenriquez\\Module6aMvcProject\\": "src/"
+        }
+    },
+    "minimum-stability": "stable",
+    "require": {}
+}

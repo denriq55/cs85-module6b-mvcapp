@@ -3,7 +3,7 @@
     "description": "A simple PHP MVC project for learning purposes",
     "autoload": {
         "psr-4": {
-            "Dyanenriquez\\Module6aMvcProject\\": "src/"
+            "App\\": "src/"
         }
     },
     "minimum-stability": "stable",

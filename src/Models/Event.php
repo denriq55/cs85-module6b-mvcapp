@@ -17,7 +17,7 @@ class Event {
         try {
             $this->pdo = new \PDO("mysql:host=$host;dbname=$db", $user, $pass);
             $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-            echo "Connected successfully!";
+         
 
         } catch(\PDOException $e) {
             die ("Database connection failed: " . $e->getMessage()); 
@@ -25,20 +25,21 @@ class Event {
     }
 
     //Get genre matches
-    public function getGenres($userInputGenre) {
-        $stmt = $this->pdo->prepare("SELECT * FROM events WHERE genre = :genre ORDER BY event_date");
-        $stmt->execute(['genre' => $userInputGenre]);
-        $matchedGenres = $stmt->fetchAll(\PDO::FETCH_ASSOC); 
-        return $matchedGenres;
-    }
+    public function getMatchingEvents($genre, $type, $location) {
+        $stmt = $this->pdo->prepare(
+            "SELECT * FROM events 
+            WHERE genre = :genre 
+            AND type = :type 
+            AND location = :location 
+            ORDER BY event_date");
 
-    //Get location matches
-    public function getLocation($userInputLocation) {
-        $stmt = $this->pdo->prepare("SELECT * FROM events WHERE location = :location ORDER BY event_date");
-        $stmt->execute(['location'=> $userInputLocation]);
-        $matchedLocations = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-        return $matchedLocations;
+        $stmt->execute([
+            'genre' => $genre,
+            'type' => $type,
+            'location' => $location
+        ]);
 
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC); 
     }
 
     //Get all genres for dropdown
@@ -59,5 +60,6 @@ class Event {
         return $stmt->fetchAll(\PDO::FETCH_COLUMN);
     }
 }
+
 
 ?> 

@@ -4,11 +4,25 @@ namespace App\Controllers;
 
 use App\Models\Event;
 
-$eventModel = new Event($pdo);
+class EventController {
+    private $eventModel;
 
+    public function __construct() {
+        $this->eventModel = new Event();
+    }
 
-$genres = $eventModel->getGenres();
-$locations = $eventModel->getLocations();
-$types = $eventModel->getAllTypes();
+    //Get form data
+    public function getFormData() {
+        $genre = trim($_POST['genre'] ?? '');
+        $type = trim($_POST['type'] ?? '');
+        $location = trim($_POST['location'] ?? '');
+    
+    //Get matching events
+    $matches = $this->eventModel->getMatchingEvents($genre, $type, $location);
 
-include __DIR__ . '/../Views/form.php';
+    return $matches;
+
+    }
+
+}
+

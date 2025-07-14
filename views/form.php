@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,6 +30,18 @@
         echo '<option value="' . htmlspecialchars($location) . '">' . htmlspecialchars($location) . '</option>';
         } ?>
         </select>
+
+        <button type="submit">Search</button>
+
+        <?php if (($_SERVER['REQUEST_METHOD'] === 'POST') && !empty($matches)): ?>
+        <h2>Matching Events</h2>
+            <?php foreach ($matches as $event): ?>
+            <p><?= $event['event_name'] ?> (<?= $event['genre'] ?>, <?= $event['type'] ?>, <?= $event['location'] ?> — <?= $event['event_date'] ?>)</p>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p>Sorry, no matches found.</p>
+        <?php endif; ?>
+        
 
 </body>
 </html>
